@@ -1,5 +1,5 @@
 <div class="container mx-auto">
-  <h4 class="text-4xl underline">Oi Tailwind Angular 2</h4>
+  <h4 class="text-4xl underline">Oi Tailwind Angular 2 {{title}}</h4>
   <div class="button-sample">
     <button igxButton="flat" igxRipple>Flat</button>
   </div>
@@ -8,5 +8,31 @@
   </div>
   <div class="button-sample">
       <button igxButton="outlined" igxRipple>Outlined</button>
+  </div>
+  <div style="text-align: center;">
+    <igx-grid [data]="data" height="700px" style="margin: auto" [allowFiltering]="true" [filterMode]="'excelStyleFilter'">
+      <igx-column header="Carta" [width]="150" [filterable]="false">
+        <ng-template igxCell let-cell="cell">
+            <div>
+                <igx-avatar [src]="cell.row.data.images.small" shape="rounded" size="large"></igx-avatar>
+            </div>
+        </ng-template>
+      </igx-column>          
+      <igx-column field="name" dataType="string" [cellClasses]="{'font-bold underline' : true }" header="Nome" [width]="'25%'"></igx-column>
+      <igx-column field="set.name" dataType="string" [cellClasses]="{'font-bold' : true }" header="Coleção" [width]="'40%'"></igx-column><span>images.small</span>
+      <igx-column header="" [width]="250" [filterable]="false">
+        <ng-template igxCell let-cell="cell">
+            <div>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Outlined</button>
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Outlined</button>
+            </div>
+        </ng-template>
+      </igx-column>         
+    </igx-grid>
   </div>  
+  <ul>
+    <li *ngFor="let p of data">
+      {{p.id}} - {{p.name}} - {{p.set.name}} - {{p.images.small}}
+    </li>
+  </ul>
 </div>

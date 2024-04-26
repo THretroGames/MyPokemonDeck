@@ -8,16 +8,22 @@ import {
   IgxButtonModule,
   IgxIconModule,
   IgxRippleModule,
+  IgxGridModule,
+  IgxAvatarModule,
 } from 'igniteui-angular';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     IgxButtonModule,
     IgxIconModule,
     IgxRippleModule,
+    IgxGridModule,
+    IgxAvatarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
