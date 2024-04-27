@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DecksService } from '../_services/decks.service';
 import { IgxToastComponent, VerticalAlignment } from 'igniteui-angular';
 import { Card } from '../_models/card';
+import { AppState } from '../_models/app-state';
 
 @Component({
   selector: 'app-card-list',
@@ -51,17 +52,30 @@ export class CardListComponent implements OnInit {
   }
 
   back(): void {
-    this.decks.state = 'deckList';
+    console.log('this.decks.previousState = ' + this.decks.previousState);
+    this.decks.state = this.decks.previousState;
   }
 
   addCard(id: string, name: string, set: string, imageUrl: string): void {
     console.log(id);
-    const card = new Card();
-    card.id = id;
-    card.name = name;
-    card.set = set;
-    card.imageUrl = imageUrl;
-    this.decks.deck.cards.push(card);
+    if (this.canAddCard(name)) {
+      const card = new Card();
+      card.id = id;
+      card.name = name;
+      card.set = set;
+      card.imageUrl = imageUrl;
+      this.decks.deck.cards.push(card);
+      this.displayMsg('Carta ' + name + ' adicionada ao Deck.');
+    }
+  }
+
+  canAddCard(name: string): boolean {
+    const result = this.decks.deck.cards.filter((c) => c.name == name);
+    if (result.length >= 4) {
+      this.displayMsg('O Deck pode ter no máximo 4 cartas com o mesmo nome.');
+      return false;
+    }
+    return true;
   }
 
   displayMsg(msg: string) {

@@ -1,6 +1,6 @@
 import { Card } from './card';
 
 export class Deck {
-  name: string;
+  name: string = '';
   cards: Card[];
 }

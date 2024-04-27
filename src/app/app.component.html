@@ -9,6 +9,7 @@
   <div class="button-sample">
       <button igxButton="outlined" igxRipple>Outlined</button>
   </div>
-  <app-add-edit-deck *ngIf="decks.state == 'deckList'"></app-add-edit-deck>
-  <app-card-list *ngIf="decks.state == 'addCard'"></app-card-list>
+  <app-deck-list *ngIf="isOnDeckListState()"></app-deck-list>
+  <app-add-edit-deck *ngIf="isOnAddEditState()"></app-add-edit-deck>
+  <app-card-list *ngIf="isOnAddCardState()"></app-card-list>
 </div>

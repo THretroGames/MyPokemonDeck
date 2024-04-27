@@ -1,11 +1,11 @@
 <form>
     <igx-input-group>
-        <input igxInput required name="deckName" type="text" [(ngModel)]="decks.deck.name"/>
+        <input igxInput required name="deckName" type="text" [(ngModel)]="decks.newDeckName"/>
         <label igxLabel for="deckName">Nome do Deck</label>
     </igx-input-group>
     <div class="flex justify-end my-5">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" (click)="addCard()">Adicionar Carta</button>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="addDeck('lala')">Salvar Deck</button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="saveDeck()">Salvar Deck</button>
     </div>    
 </form>
 <div style="text-align: center;">

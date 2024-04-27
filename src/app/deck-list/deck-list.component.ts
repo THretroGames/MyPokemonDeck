@@ -26,14 +26,13 @@ export class DeckListComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     console.log('init');
-    this.grid.markForCheck();
   }
 
-  addDeck(id: string): void {
-    console.log(id);
-    this.decks.addDeck(id);
-    this.grid.markForCheck();
-    const result = this.decks.decks.filter((d) => d.name == 'lala');
-    console.log(result.length);
+  newDeck(): void {
+    this.decks.setNewDeck();
+  }
+
+  editDeck(name: string): void {
+    this.decks.setEditDeck(name);
   }
 }

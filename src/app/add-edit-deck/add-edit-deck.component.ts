@@ -12,6 +12,7 @@ import {
   IgxToastComponent,
   VerticalAlignment,
 } from 'igniteui-angular';
+import { AppState } from '../_models/app-state';
 
 @Component({
   selector: 'app-add-edit-deck',
@@ -31,16 +32,14 @@ export class AddEditDeckComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    //this.grid.markForCheck();
     if (this.decks.deck == null) {
       this.decks.deck = new Deck();
-      this.decks.deck.name = 'lala';
       this.decks.deck.cards = [];
     }
   }
 
   addCard(): void {
-    this.decks.state = 'addCard';
+    this.decks.setStateAddCard();
   }
 
   removeCard(id: string): void {
@@ -54,13 +53,43 @@ export class AddEditDeckComponent implements OnInit, OnChanges {
     }
   }
 
-  addDeck(id: string): void {
-    console.log(id);
-    this.decks.addDeck(id);
-    this.grid.markForCheck();
-    const result = this.decks.decks.filter((d) => d.name == 'lala');
-    console.log(result.length);
-    this.displayMsg('msg lala');
+  saveDeck(): void {
+    if (this.canAddDeck()) {
+      console.log('Save Deck' + this.decks.newDeckName);
+      if (this.decks.isStateAddDeck()) {
+        console.log('Save Deck' + this.decks.newDeckName);
+        this.decks.addDeck(this.decks.newDeckName);
+      } else {
+        console.log('Edit Deck' + this.decks.newDeckName);
+        this.decks.editDeck(this.decks.newDeckName);
+      }
+      this.decks.setStateDeckList();
+    }
+  }
+
+  canAddDeck(): boolean {
+    if (this.decks.newDeckName == '') {
+      this.displayMsg('Nome do Deck não pode estar vazio');
+      return false;
+    }
+    const index = this.decks.decks.findIndex(
+      (d) => d.name == this.decks.newDeckName
+    );
+    if (this.decks.isStateAddDeck()) {
+      if (index >= 0) {
+        this.displayMsg('Nome do Deck já existe');
+        return false;
+      }
+    }
+    if (this.decks.isStateEditDeck()) {
+      if (index >= 0 && index != this.decks.editDeckIndex) {
+        this.displayMsg('Nome do Deck já existe');
+        return false;
+      }
+    }
+    //tem que ter o mínimo de carta
+    //tem q ter menos q o máximo de carta
+    return true;
   }
 
   displayMsg(msg: string) {

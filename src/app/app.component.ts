@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DecksService } from './_services/decks.service';
+import { AppState } from './_models/app-state';
 
 @Component({
   selector: 'app-root',
@@ -27,5 +28,29 @@ export class AppComponent implements OnInit {
   addTest(id: string): void {
     console.log(id);
     this.decks.addTest(id);
+  }
+
+  isOnDeckListState(): boolean {
+    if (this.decks.state == AppState.DeckList) {
+      return true;
+    }
+    return false;
+  }
+
+  isOnAddEditState(): boolean {
+    if (
+      this.decks.state == AppState.AddDeck ||
+      this.decks.state == AppState.EditDeck
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  isOnAddCardState(): boolean {
+    if (this.decks.state == AppState.AddCard) {
+      return true;
+    }
+    return false;
   }
 }
