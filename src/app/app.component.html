@@ -9,30 +9,6 @@
   <div class="button-sample">
       <button igxButton="outlined" igxRipple>Outlined</button>
   </div>
-  <div style="text-align: center;">
-    <igx-grid [data]="data" height="700px" style="margin: auto" [allowFiltering]="true" [filterMode]="'excelStyleFilter'">
-      <igx-column header="Carta" [width]="150" [filterable]="false">
-        <ng-template igxCell let-cell="cell">
-            <div>
-                <igx-avatar [src]="cell.row.data.images.small" shape="rounded" size="large"></igx-avatar>
-            </div>
-        </ng-template>
-      </igx-column>          
-      <igx-column field="name" dataType="string" [cellClasses]="{'font-bold underline' : true }" header="Nome" [width]="'25%'"></igx-column>
-      <igx-column field="set.name" dataType="string" [cellClasses]="{'font-bold' : true }" header="Coleção" [width]="'40%'"></igx-column><span>images.small</span>
-      <igx-column header="" [width]="250" [filterable]="false">
-        <ng-template igxCell let-cell="cell">
-            <div>
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Outlined</button>
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Outlined</button>
-            </div>
-        </ng-template>
-      </igx-column>         
-    </igx-grid>
-  </div>  
-  <ul>
-    <li *ngFor="let p of data">
-      {{p.id}} - {{p.name}} - {{p.set.name}} - {{p.images.small}}
-    </li>
-  </ul>
+  <app-add-edit-deck *ngIf="decks.state == 'deckList'"></app-add-edit-deck>
+  <app-card-list *ngIf="decks.state == 'addCard'"></app-card-list>
 </div>

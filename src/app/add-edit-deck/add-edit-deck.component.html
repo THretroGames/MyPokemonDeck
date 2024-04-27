@@ -1,0 +1,31 @@
+<form>
+    <igx-input-group>
+        <input igxInput required name="deckName" type="text" [(ngModel)]="decks.deck.name"/>
+        <label igxLabel for="deckName">Nome do Deck</label>
+    </igx-input-group>
+    <div class="flex justify-end my-5">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" (click)="addCard()">Adicionar Carta</button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="addDeck('lala')">Salvar Deck</button>
+    </div>    
+</form>
+<div style="text-align: center;">
+    <igx-grid #cardGrid [data]="decks.deck.cards" height="700px" style="margin: auto" [allowFiltering]="true" [filterMode]="'excelStyleFilter'">
+        <igx-column header="Carta" [width]="150" [filterable]="false">
+            <ng-template igxCell let-cell="cell">
+                <div>
+                    <igx-avatar [src]="cell.row.data.imageUrl" shape="rounded" size="large"></igx-avatar>
+                </div>
+            </ng-template>
+        </igx-column>          
+        <igx-column field="name" dataType="string" [cellClasses]="{'font-bold underline' : true }" header="Nome" [width]="'25%'"></igx-column>
+        <igx-column field="set.name" dataType="string" [cellClasses]="{'font-bold' : true }" header="Coleção" [width]="'40%'"></igx-column><span>images.small</span>
+        <igx-column header="" [width]="250" [filterable]="false">
+            <ng-template igxCell let-cell="cell">
+                <div>
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="removeCard(cell.row.data.id)">Remover</button>
+                </div>
+            </ng-template>
+        </igx-column>         
+    </igx-grid>
+</div>  
+<igx-toast #toast></igx-toast>
