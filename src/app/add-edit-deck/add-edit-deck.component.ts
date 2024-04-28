@@ -12,7 +12,6 @@ import {
   IgxToastComponent,
   VerticalAlignment,
 } from 'igniteui-angular';
-import { AppState } from '../_models/app-state';
 
 @Component({
   selector: 'app-add-edit-deck',
@@ -24,6 +23,9 @@ export class AddEditDeckComponent implements OnInit, OnChanges {
   public toast: IgxToastComponent;
   @ViewChild('cardGrid')
   public grid: IgxGridComponent;
+
+  private minCardCount = 24;
+  private maxCardCount = 60;
 
   constructor(public decks: DecksService) {}
 
@@ -45,6 +47,25 @@ export class AddEditDeckComponent implements OnInit, OnChanges {
   removeCard(id: string): void {
     const index = this.decks.deck.cards.findIndex((x) => x.id == id);
     if (index >= 0) {
+      const card = this.decks.deck.cards[index];
+      if (card.isPokemon) {
+        this.decks.deck.pokemonCount--;
+      }
+      if (card.isTrainer) {
+        this.decks.deck.trainerCount--;
+      }
+      if (card.types != null) {
+        card.types.forEach((t) => {
+          let index = this.decks.deck.types.findIndex((x) => x == t);
+          if (index >= 0) {
+            this.decks.deck.types.splice(index, 1);
+          }
+          index = this.decks.deck.types.findIndex((x) => x == t);
+          if (index < 0) {
+            this.decks.deck.typeCount--;
+          }
+        });
+      }
       this.decks.deck.cards.splice(index, 1);
       this.grid.markForCheck();
     }
@@ -81,8 +102,18 @@ export class AddEditDeckComponent implements OnInit, OnChanges {
         return false;
       }
     }
-    //tem que ter o mínimo de carta
-    //tem q ter menos q o máximo de carta
+    if (this.decks.deck.cards.length < this.minCardCount) {
+      this.displayMsg(
+        'O Deck deve ter no mínimo ' + this.minCardCount + ' cartas'
+      );
+      return false;
+    }
+    if (this.decks.deck.cards.length > this.maxCardCount) {
+      this.displayMsg(
+        'O Deck deve ter no máximo ' + this.maxCardCount + ' cartas'
+      );
+      return false;
+    }
     return true;
   }
 

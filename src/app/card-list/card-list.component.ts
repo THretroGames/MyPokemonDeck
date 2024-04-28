@@ -37,6 +37,7 @@ export class CardListComponent {
           this.isLoading = false;
         },
         (erro) => {
+          this.displayMsg('Erro ao procurar carta, favor tentar novamente');
           this.isLoading = false;
         }
       );
@@ -60,18 +61,22 @@ export class CardListComponent {
       card.name = name;
       card.set = set;
       card.imageUrl = imageUrl;
+      card.types = types;
       if (superType == 'Pokémon') {
+        card.isPokemon = true;
         this.decks.deck.pokemonCount++;
       }
       if (superType == 'Trainer') {
+        card.isTrainer = true;
         this.decks.deck.trainerCount++;
       }
       if (types != null) {
         types.forEach((t) => {
           const index = this.decks.deck.types.findIndex((x) => x == t);
           if (index < 0) {
-            this.decks.deck.types.push(t);
+            this.decks.deck.typeCount++;
           }
+          this.decks.deck.types.push(t);
         });
       }
       this.decks.deck.cards.push(card);

@@ -29,8 +29,7 @@
         <igx-column header="" [width]="null" [filterable]="false">
             <ng-template igxCell let-cell="cell">
                 <div>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="addCard(cell.row.data.id, cell.row.data.name, cell.row.data.set.name, cell.row.data.images.small, cell.row.data.supertype, cell.row.data.types)">Adicionar</button>
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="addTest(cell.row.data.id)">Outlined</button>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="addCard(cell.row.data.id, cell.row.data.name, cell.row.data.set.name, cell.row.data.images.small, cell.row.data.supertype, cell.row.data.types)">Adicionar ao Deck</button>
                 </div>
             </ng-template>
         </igx-column>         

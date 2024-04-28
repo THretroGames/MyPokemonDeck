@@ -5,5 +5,6 @@ export class Deck {
   cards: Card[] = [];
   pokemonCount: number = 0;
   trainerCount: number = 0;
+  typeCount: number = 0;
   types: string[] = [];
 }

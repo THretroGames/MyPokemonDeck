@@ -25,3 +25,26 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+Olá,
+
+Sobre o projeto:
+
+Primeiro gostaria de expressar que achei muito divertido e inteligente o teste, e que adorei a temática :)
+
+Como o projeto deve ser apenas em memória, não usei local storage e usei o padrão singleton na injeção de dependência do serviço de Deck.
+Também não usei route e usei máquina de estado para navegar entre os componentes que formam o sistema.
+
+Eu foquei mais na funcionalidade do app e entregar o que é pedido no teste dentro de um prazo válido, tendo dito isto, existem alguns pontos de melhoria e refactoring.
+Um deles é na edição de Deck que poderia ser feito em um Deck temporário e dará opção de cancelar a edição.
+Outro ponto de melhoria é no layout e web design no app.
+Também usar quantidade da mesma carta ao invés de exibir as cópias.
+Refactoring para colocar algumas seções de componentes em outro componente para evitar DRY.
+
+Um exemplo ótimo de Deck Builder que eu gosto muito é do Magic Arena, seria bem legal tentar replicar o mesmo layout e processo feito em Unity usando Angular, seria bem desafiador, mas muito interessante.
+
+IDE utilizada: VSCode
+
+Tempo levado para finalizar o projeto: 18 horas.
+
+Muito obrigado pela oportunidade e adoraria ouvir um feedback sobre o projeto :)
