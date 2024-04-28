@@ -40,6 +40,7 @@ Um deles é na edição de Deck que poderia ser feito em um Deck temporário e d
 Outro ponto de melhoria é no layout e web design no app.
 Também usar quantidade da mesma carta ao invés de exibir as cópias.
 Refactoring para colocar algumas seções de componentes em outro componente para evitar DRY.
+Opção de exibir a carta em Hi-Rez.
 
 Um exemplo ótimo de Deck Builder que eu gosto muito é do Magic Arena, seria bem legal tentar replicar o mesmo layout e processo feito em Unity usando Angular, seria bem desafiador, mas muito interessante.
 
