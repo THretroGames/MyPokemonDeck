@@ -3,4 +3,5 @@ export enum AppState {
   AddDeck,
   AddCard,
   EditDeck,
+  ViewInfoDeck,
 }

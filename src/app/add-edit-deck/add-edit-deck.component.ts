@@ -43,10 +43,7 @@ export class AddEditDeckComponent implements OnInit, OnChanges {
   }
 
   removeCard(id: string): void {
-    console.log(id);
     const index = this.decks.deck.cards.findIndex((x) => x.id == id);
-    console.log('index ' + index);
-    const result = this.decks.decks.filter((d) => d.name == 'lala');
     if (index >= 0) {
       this.decks.deck.cards.splice(index, 1);
       this.grid.markForCheck();
@@ -55,12 +52,9 @@ export class AddEditDeckComponent implements OnInit, OnChanges {
 
   saveDeck(): void {
     if (this.canAddDeck()) {
-      console.log('Save Deck' + this.decks.newDeckName);
       if (this.decks.isStateAddDeck()) {
-        console.log('Save Deck' + this.decks.newDeckName);
         this.decks.addDeck(this.decks.newDeckName);
       } else {
-        console.log('Edit Deck' + this.decks.newDeckName);
         this.decks.editDeck(this.decks.newDeckName);
       }
       this.decks.setStateDeckList();
@@ -90,6 +84,11 @@ export class AddEditDeckComponent implements OnInit, OnChanges {
     //tem que ter o mínimo de carta
     //tem q ter menos q o máximo de carta
     return true;
+  }
+
+  public onDialogOKSelected(event) {
+    this.decks.setStateDeckList();
+    event.dialog.close();
   }
 
   displayMsg(msg: string) {

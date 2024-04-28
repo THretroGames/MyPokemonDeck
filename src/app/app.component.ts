@@ -25,11 +25,6 @@ export class AppComponent implements OnInit {
       (erro) => console.log('Erro ao procurar Pokémon.');
   }
 
-  addTest(id: string): void {
-    console.log(id);
-    this.decks.addTest(id);
-  }
-
   isOnDeckListState(): boolean {
     if (this.decks.state == AppState.DeckList) {
       return true;

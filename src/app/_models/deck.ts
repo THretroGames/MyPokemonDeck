@@ -2,5 +2,8 @@ import { Card } from './card';
 
 export class Deck {
   name: string = '';
-  cards: Card[];
+  cards: Card[] = [];
+  pokemonCount: number = 0;
+  trainerCount: number = 0;
+  types: string[] = [];
 }

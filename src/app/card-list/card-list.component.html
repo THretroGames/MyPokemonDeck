@@ -1,3 +1,4 @@
+<h3 class="text-slate-600">Adicionar Carta</h3>
 <form>
     <igx-input-group>
         <input igxInput required name="CardName" type="text" [(ngModel)]="cardName"/>
@@ -23,26 +24,16 @@
                 </div>
             </ng-template>
         </igx-column>          
-        <igx-column field="name" dataType="string" [cellClasses]="{'font-bold underline' : true }" header="Nome" [width]="'25%'"></igx-column>
-        <igx-column field="set.name" dataType="string" [cellClasses]="{'font-bold' : true }" header="Coleção" [width]="'40%'"></igx-column><span>images.small</span>
-        <igx-column header="" [width]="250" [filterable]="false">
+        <igx-column field="name" dataType="string" [cellClasses]="{'font-bold underline' : true }" header="Nome" [width]="'25%'" [sortable]="true"></igx-column>
+        <igx-column field="set.name" dataType="string" [cellClasses]="{'font-bold' : true }" header="Coleção" [width]="'40%'" [sortable]="true"></igx-column><span>images.small</span>
+        <igx-column header="" [width]="null" [filterable]="false">
             <ng-template igxCell let-cell="cell">
                 <div>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="addCard(cell.row.data.id, cell.row.data.name, cell.row.data.set.name, cell.row.data.images.small)">Adicionar</button>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="addCard(cell.row.data.id, cell.row.data.name, cell.row.data.set.name, cell.row.data.images.small, cell.row.data.supertype, cell.row.data.types)">Adicionar</button>
                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="addTest(cell.row.data.id)">Outlined</button>
                 </div>
             </ng-template>
         </igx-column>         
     </igx-grid>
 </div>   
-<ul>
-    <li *ngFor="let p of decks.test">
-    {{p}}
-    </li>
-</ul>  
-<ul>
-    <li *ngFor="let p of cards">
-    {{p.id}} - {{p.name}} - {{p.set.name}} - {{p.images.small}}
-    </li>
-</ul>
 <igx-toast #toast></igx-toast>

@@ -1,14 +1,27 @@
-<h3>Meus Decks</h3>
+<h3 class="text-slate-600">Meus Decks</h3>
 <div class="flex justify-end mb-5">
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="newDeck()">Novo</button>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="newDeck()">Criar Novo Deck</button>
 </div>
+<igx-dialog #dialog title="Confirmação"
+    leftButtonLabel="Cancelar"
+    (leftButtonSelect)="dialog.close()"
+    rightButtonLabel="OK"
+    (rightButtonSelect)="onDialogOKSelected($event)"
+    message="Tem certeza que gostaria de remover o Deck?">
+</igx-dialog>
 <div style="text-align: center;">
     <igx-grid #deckGrid [data]="decks.decks" height="700px" style="margin: auto" [allowFiltering]="true" [filterMode]="'excelStyleFilter'">       
-        <igx-column field="name" dataType="string" [cellClasses]="{'font-bold underline' : true }" header="Nome" [width]="'25%'"></igx-column>   
-        <igx-column header="" [width]="250" [filterable]="false">
+        <igx-column field="name" dataType="string" [cellClasses]="{'font-bold' : true }" header="Nome" [width]="'28%'" [sortable]="true"></igx-column>   
+        <igx-column field="cards.length" dataType="string" [cellClasses]="{'font-bold' : true }" header="Cartas" [width]="'12%'" [sortable]="true"></igx-column>  
+        <igx-column field="pokemonCount" dataType="string" [cellClasses]="{'font-bold' : true }" header="Pokémons" [width]="'12%'" [sortable]="true"></igx-column>  
+        <igx-column field="trainerCount" dataType="string" [cellClasses]="{'font-bold' : true }" header="Treinadores" [width]="'12%'" [sortable]="true"></igx-column>  
+        <igx-column field="types.length" dataType="string" [cellClasses]="{'font-bold' : true }" header="Cores" [width]="'12%'" [sortable]="true"></igx-column>  
+        <igx-column header="" [width]="null" [filterable]="false">
             <ng-template igxCell let-cell="cell">
                 <div>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="editDeck(cell.row.data.name)">Editar</button>                    
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" (click)="editDeck(cell.row.data.name)">Editar</button>   
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" (click)="viewInfoDeck(cell.row.data.name)">Informações</button>  
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="dialog.open();setDeleteDeck(cell.row.data.name)">Remover</button>                  
                 </div>
             </ng-template>
         </igx-column>               

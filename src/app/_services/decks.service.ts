@@ -6,7 +6,6 @@ import { AppState } from '../_models/app-state';
   providedIn: 'root',
 })
 export class DecksService {
-  public test: string[] = [];
   public decks: Deck[] = [];
   public deck: Deck;
   public previousState: AppState = AppState.DeckList;
@@ -15,10 +14,6 @@ export class DecksService {
   public editDeckIndex = -1;
 
   constructor() {}
-
-  public addTest(test: string) {
-    this.test.push(test);
-  }
 
   public setNewDeck() {
     this.newDeckName = '';
@@ -35,6 +30,14 @@ export class DecksService {
       this.deck = this.decks[index];
       this.newDeckName = this.deck.name;
       this.setStateEditDeck();
+    }
+  }
+
+  public setViewInfoDeck(name: string) {
+    const index = this.decks.findIndex((d) => d.name == name);
+    if (index >= 0) {
+      this.deck = this.decks[index];
+      this.setStateViewInfoDeck();
     }
   }
 
@@ -59,14 +62,17 @@ export class DecksService {
 
   public setStateAddCard(): void {
     this.previousState = this.state;
-    console.log('this.previousState = ' + this.previousState);
     this.state = AppState.AddCard;
   }
 
   public setStateEditDeck(): void {
     this.previousState = this.state;
-    console.log('this.previousState = ' + this.previousState);
     this.state = AppState.EditDeck;
+  }
+
+  public setStateViewInfoDeck(): void {
+    this.previousState = this.state;
+    this.state = AppState.ViewInfoDeck;
   }
 
   public isStateDeckList(): boolean {
@@ -83,5 +89,9 @@ export class DecksService {
 
   public isStateEditDeck(): boolean {
     return this.state == AppState.EditDeck;
+  }
+
+  public isStateViewInfoDeck(): boolean {
+    return this.state == AppState.ViewInfoDeck;
   }
 }

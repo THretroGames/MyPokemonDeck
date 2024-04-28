@@ -1,16 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DecksService } from '../_services/decks.service';
 import { IgxToastComponent, VerticalAlignment } from 'igniteui-angular';
 import { Card } from '../_models/card';
-import { AppState } from '../_models/app-state';
 
 @Component({
   selector: 'app-card-list',
   templateUrl: './card-list.component.html',
   styleUrls: ['./card-list.component.css'],
 })
-export class CardListComponent implements OnInit {
+export class CardListComponent {
   @ViewChild('toast', { read: IgxToastComponent })
   public toast: IgxToastComponent;
 
@@ -23,13 +22,6 @@ export class CardListComponent implements OnInit {
   };
 
   constructor(private http: HttpClient, public decks: DecksService) {}
-
-  ngOnInit(): void {}
-
-  addTest(id: string): void {
-    console.log(id);
-    this.decks.addTest(id);
-  }
 
   searchCard(): void {
     if (this.cardName == '') {
@@ -45,25 +37,43 @@ export class CardListComponent implements OnInit {
           this.isLoading = false;
         },
         (erro) => {
-          console.log('Erro ao procurar Pokémon.');
           this.isLoading = false;
         }
       );
   }
 
   back(): void {
-    console.log('this.decks.previousState = ' + this.decks.previousState);
     this.decks.state = this.decks.previousState;
   }
 
-  addCard(id: string, name: string, set: string, imageUrl: string): void {
-    console.log(id);
+  addCard(
+    id: string,
+    name: string,
+    set: string,
+    imageUrl: string,
+    superType: string,
+    types: string[]
+  ): void {
     if (this.canAddCard(name)) {
       const card = new Card();
       card.id = id;
       card.name = name;
       card.set = set;
       card.imageUrl = imageUrl;
+      if (superType == 'Pokémon') {
+        this.decks.deck.pokemonCount++;
+      }
+      if (superType == 'Trainer') {
+        this.decks.deck.trainerCount++;
+      }
+      if (types != null) {
+        types.forEach((t) => {
+          const index = this.decks.deck.types.findIndex((x) => x == t);
+          if (index < 0) {
+            this.decks.deck.types.push(t);
+          }
+        });
+      }
       this.decks.deck.cards.push(card);
       this.displayMsg('Carta ' + name + ' adicionada ao Deck.');
     }
@@ -76,6 +86,11 @@ export class CardListComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  public onDialogOKSelected(event) {
+    this.decks.setStateDeckList();
+    event.dialog.close();
   }
 
   displayMsg(msg: string) {

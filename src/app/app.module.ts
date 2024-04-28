@@ -14,11 +14,13 @@ import {
   IgxProgressBarModule,
   IgxInputGroupModule,
   IgxToastModule,
+  IgxDialogModule,
 } from 'igniteui-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { DeckListComponent } from './deck-list/deck-list.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { AddEditDeckComponent } from './add-edit-deck/add-edit-deck.component';
+import { ViewInfoDeckComponent } from './view-info-deck/view-info-deck.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { AddEditDeckComponent } from './add-edit-deck/add-edit-deck.component';
     DeckListComponent,
     CardListComponent,
     AddEditDeckComponent,
+    ViewInfoDeckComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { AddEditDeckComponent } from './add-edit-deck/add-edit-deck.component';
     IgxProgressBarModule,
     IgxInputGroupModule,
     IgxToastModule,
+    IgxDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

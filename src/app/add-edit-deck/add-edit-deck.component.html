@@ -1,15 +1,44 @@
-<form>
+<h3 class="text-slate-600" *ngIf="decks.isStateAddDeck()">Novo Deck</h3>
+<h3 class="text-slate-600" *ngIf="decks.isStateEditDeck()">Editar Deck</h3>
+<igx-dialog #dialog title="Confirmação"
+    leftButtonLabel="Cancelar"
+    (leftButtonSelect)="dialog.close()"
+    rightButtonLabel="OK"
+    (rightButtonSelect)="onDialogOKSelected($event)"
+    message="Tem certeza que gostaria de descartar as alterações?">
+</igx-dialog>
+<div class="grid grid-cols-4 gap-4">
+    <igx-input-group>
+        <input igxInput name="cartas" type="text" [value]="decks.deck.cards.length" disabled>
+        <label igxLabel for="cartas">Cartas</label>
+    </igx-input-group>   
+    <igx-input-group>
+        <input igxInput name="pokemons" type="text" [value]="decks.deck.pokemonCount" disabled>
+        <label igxLabel for="pokemons">Pokémons</label>
+    </igx-input-group>  
+    <igx-input-group>
+        <input igxInput name="treinadores" type="text" [value]="decks.deck.trainerCount" disabled>
+        <label igxLabel for="treinadores">Treinadores</label>
+    </igx-input-group>  
+    <igx-input-group>
+        <input igxInput name="cores" type="text" [value]="decks.deck.types.length" disabled>
+        <label igxLabel for="cores">Cores</label>
+    </igx-input-group>                     
+</div>
+<form class="mt-2">
     <igx-input-group>
         <input igxInput required name="deckName" type="text" [(ngModel)]="decks.newDeckName"/>
         <label igxLabel for="deckName">Nome do Deck</label>
     </igx-input-group>
-    <div class="flex justify-end my-5">
+    <div class="flex justify-end mt-5">
+        <button *ngIf="decks.isStateAddDeck()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" (click)="dialog.open()">Voltar</button>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" (click)="addCard()">Adicionar Carta</button>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="saveDeck()">Salvar Deck</button>
     </div>    
 </form>
-<div style="text-align: center;">
-    <igx-grid #cardGrid [data]="decks.deck.cards" height="700px" style="margin: auto" [allowFiltering]="true" [filterMode]="'excelStyleFilter'">
+<h5 class="text-slate-600">Cartas</h5>
+<div style="text-align: center;" class="mt-2">
+    <igx-grid #cardGrid [data]="decks.deck.cards" height="530px" style="margin: auto" [allowFiltering]="true" [filterMode]="'excelStyleFilter'">
         <igx-column header="Carta" [width]="150" [filterable]="false">
             <ng-template igxCell let-cell="cell">
                 <div>
@@ -17,9 +46,9 @@
                 </div>
             </ng-template>
         </igx-column>          
-        <igx-column field="name" dataType="string" [cellClasses]="{'font-bold underline' : true }" header="Nome" [width]="'25%'"></igx-column>
-        <igx-column field="set.name" dataType="string" [cellClasses]="{'font-bold' : true }" header="Coleção" [width]="'40%'"></igx-column><span>images.small</span>
-        <igx-column header="" [width]="250" [filterable]="false">
+        <igx-column field="name" dataType="string" [cellClasses]="{'font-bold underline' : true }" header="Nome" [width]="'25%'"  [sortable]="true"></igx-column>
+        <igx-column field="set" dataType="string" [cellClasses]="{'font-bold' : true }" header="Coleção" [width]="'50%'"  [sortable]="true"></igx-column><span>images.small</span>
+        <igx-column header="" [width]="null" [filterable]="false">
             <ng-template igxCell let-cell="cell">
                 <div>
                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="removeCard(cell.row.data.id)">Remover</button>
