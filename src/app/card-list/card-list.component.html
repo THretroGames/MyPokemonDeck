@@ -15,7 +15,10 @@
     [textVisibility]="false"
     [hidden]="!isLoading"
 ></igx-circular-bar>
-<div style="text-align: center;">
+<div *ngIf="cards == null || cards.length == 0" class="flex justify-center mb-5">
+    <h5 class="text-slate-600">Nenhuma carta</h5>
+</div>
+<div *ngIf="!isLoading && cards != null && cards.length > 0" style="text-align: center;">
     <igx-grid [data]="cards" height="700px" style="margin: auto" [allowFiltering]="true" [filterMode]="'excelStyleFilter'">
         <igx-column header="Carta" [width]="150" [filterable]="false">
             <ng-template igxCell let-cell="cell">

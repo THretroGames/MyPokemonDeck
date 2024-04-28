@@ -37,7 +37,10 @@
     </div>    
 </form>
 <h5 class="text-slate-600">Cartas</h5>
-<div style="text-align: center;" class="mt-2">
+<div *ngIf="decks.deck.cards == null || decks.deck.cards.length == 0" class="flex justify-center mb-5">
+    <h5 class="text-slate-600">Você ainda não tem nenhuma carta. Comece adicionando a primeira :)</h5>
+</div>
+<div *ngIf="decks.deck.cards != null && decks.deck.cards.length > 0" style="text-align: center;" class="mt-2">
     <igx-grid #cardGrid [data]="decks.deck.cards" height="530px" style="margin: auto" [allowFiltering]="true" [filterMode]="'excelStyleFilter'">
         <igx-column header="Carta" [width]="150" [filterable]="false">
             <ng-template igxCell let-cell="cell">

@@ -9,7 +9,10 @@
     (rightButtonSelect)="onDialogOKSelected($event)"
     message="Tem certeza que gostaria de remover o Deck?">
 </igx-dialog>
-<div style="text-align: center;">
+<div *ngIf="decks.decks == null || decks.decks.length == 0" class="flex justify-center mb-5">
+    <h5 class="text-slate-600">Você ainda não tem nenhum Deck. Comece adicionando seu primeiro :)</h5>
+</div>
+<div *ngIf="decks.decks != null && decks.decks.length > 0" style="text-align: center;">
     <igx-grid #deckGrid [data]="decks.decks" height="700px" style="margin: auto" [allowFiltering]="true" [filterMode]="'excelStyleFilter'">       
         <igx-column field="name" dataType="string" [cellClasses]="{'font-bold' : true }" header="Nome" [width]="'28%'" [sortable]="true"></igx-column>   
         <igx-column field="cards.length" dataType="string" [cellClasses]="{'font-bold' : true }" header="Cartas" [width]="'12%'" [sortable]="true"></igx-column>  
@@ -26,9 +29,4 @@
             </ng-template>
         </igx-column>               
     </igx-grid>
-</div> 
-<ul>
-    <li *ngFor="let p of decks.decks">
-        {{p.name}}
-    </li>
-</ul> 
+</div>
